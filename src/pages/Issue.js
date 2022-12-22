@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { Badge, Card } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { issueDetailState } from '../state/recoil';
 import './Issue.css'
 export default function Issue({issueData}) {
-  const setIssueDetail = useSetRecoilState(issueDetailState)
+  const [issueDetail, setIssueDetail] = useRecoilState(issueDetailState)
   const navigate = useNavigate()
   const badgeBg = {
     'documentation': 'primary',

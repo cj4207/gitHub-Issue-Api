@@ -12,6 +12,7 @@ export default function Issues() {
     })
     octokit.request('GET /repos/{owner}/{repo}/issues', { owner: 'planetarium', repo: 'take-home-2022-cj4207'})
     .then(res=>{
+      console.log(res.data, 'res.datares.data')
       setIssues(res.data)
     })
   }, [])
