@@ -4,3 +4,8 @@ export const modalContentState = atom({
   key: 'modalContentState',
   default: {}
 })
+
+export const issueDetailState = atom({
+  key: 'issueDetailState',
+  default: {}
+})

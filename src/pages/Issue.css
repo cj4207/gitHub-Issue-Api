@@ -1,3 +1,12 @@
+.issueArea {
+  margin-left: 5px;
+  width: 50%;
+}
+
+.issueArea:hover {
+  cursor: pointer;
+}
+
 .issueTextArea {
   height: 8rem;
   overflow: hidden;

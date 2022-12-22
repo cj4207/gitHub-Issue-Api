@@ -25,7 +25,7 @@ export default function Issues() {
           {issues?.length ?
               <div className='issuesArea'>
               {issues.map((el, idx)=>
-                <Issue  key={idx} title={el.title} body={el.body} labels={el.labels}/>
+                <Issue key={idx} issueData={el} />
               )}
               </div>
             :
