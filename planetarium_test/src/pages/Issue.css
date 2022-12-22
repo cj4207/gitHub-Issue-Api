@@ -1,0 +1,9 @@
+.issueTextArea {
+  height: 8rem;
+  overflow: hidden;
+  border: 1px solid gray;
+}
+
+.issueBadgeArea {
+  overflow: hidden;
+}

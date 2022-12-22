@@ -1,4 +1,5 @@
 import './App.css';
+import GlobalModal from './components/modal';
 import BasicExample from './components/nav'
 import Router from './router';
 function App() {
@@ -6,6 +7,7 @@ function App() {
     <div className="App">
       <BasicExample/>
       <Router/>
+      <GlobalModal/>
     </div>
   );
 }

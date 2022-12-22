@@ -3,6 +3,7 @@ import { Button, Card } from 'react-bootstrap';
 import { Octokit } from 'octokit';
 import { Link } from 'react-router-dom';
 import Issue from './Issue';
+import './Issues.css'
 export default function Issues() {
   const [issues, setIssues] = useState()
   useEffect(()=>{
@@ -22,9 +23,11 @@ export default function Issues() {
         <Card.Body>
           <Card.Title>{issues?.length ? '현재 등록된 이슈' : '현재 등록된 이슈가 없습니다.'}</Card.Title>
           {issues?.length ?
-            issues.map((el, idx)=>
-              <Issue key={idx} title={el.title} body={el.body} labels={el.labels}/>
-            ) 
+              <div className='issuesArea'>
+              {issues.map((el, idx)=>
+                <Issue  key={idx} title={el.title} body={el.body} labels={el.labels}/>
+              )}
+              </div>
             :
             <Link to='/new'>
               <Button variant="primary">이슈 등록하러 가기</Button>

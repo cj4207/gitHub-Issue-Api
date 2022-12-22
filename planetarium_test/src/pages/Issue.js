@@ -1,5 +1,5 @@
 import { Badge, Card } from 'react-bootstrap';
-
+import './Issue.css'
 export default function Issue(props) {
   const {title, body, labels} = props
   const badgeBg = {
@@ -13,15 +13,19 @@ export default function Issue(props) {
     'enhancement': 'dark'
   }
   return (
-    <Card style={{ width: '18rem' }}>
+    <Card style={{ width: '18rem' , display: 'inline-block', height: '15rem'}}>
       <Card.Body>
         <Card.Title>{title}</Card.Title>
-        <Card.Text>
-          {body}
-        </Card.Text>
-        {labels.map((el, idx)=>
-          <Badge key={idx} bg={badgeBg[el.name]}>{el.name}</Badge>
-        )}
+        <div className='issueTextArea'>
+          <Card.Text>
+            {body}
+          </Card.Text>
+        </div>
+        <div className='issueBadgeArea'>
+          {labels.map((el, idx)=>
+            <Badge key={idx} bg={badgeBg[el.name]}>{el.name}</Badge>
+            )}
+        </div>
       </Card.Body>
     </Card>
   )
