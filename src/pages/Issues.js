@@ -10,7 +10,7 @@ export default function Issues() {
     const octokit = new Octokit({
       auth: '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'
     })
-    octokit.request('GET /repos/{owner}/{repo}/issues', { owner: 'cj4207', repo: 'react-app'})
+    octokit.request('GET /repos/{owner}/{repo}/issues', { owner: 'planetarium', repo: 'take-home-2022-cj4207'})
     .then(res=>{
       setIssues(res.data)
     })

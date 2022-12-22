@@ -1,8 +1,11 @@
 import { useRef } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { useNavigate  } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { modalContentState } from '../state/recoil';
 import './modal.css'
 function GlobalModal() {
+  const modalContent = useRecoilValue(modalContentState)
   const modalRef = useRef()
   const navigate = useNavigate()
   function closeModal(){
@@ -17,11 +20,11 @@ function GlobalModal() {
     >
       <Modal.Dialog>
         <Modal.Header closeButton>
-          <Modal.Title>Modal title</Modal.Title>
+          <Modal.Title>{modalContent.title}</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
-          <p>Modal body text goes here.</p>
+          <p>{modalContent.body}</p>
         </Modal.Body>
 
         <Modal.Footer>

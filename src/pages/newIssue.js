@@ -1,18 +1,20 @@
 import { Octokit } from 'octokit';
 import { useState, useEffect } from 'react';
 import { Button, Form, Dropdown } from 'react-bootstrap';
+import { useSetRecoilState } from 'recoil';
+import { modalContentState } from '../state/recoil';
 
 export default function NewIssue() {
 
   const [body, setBody] = useState()
   const [labels, setLabels] = useState([])
-
+  const setModalContent = useSetRecoilState(modalContentState)
   const octokit = new Octokit({
     auth: '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'
   })
 
   useEffect(()=>{
-    octokit.request('GET /repos/{owner}/{repo}/labels', { owner: 'cj4207', repo: 'react-app'})
+    octokit.request('GET /repos/{owner}/{repo}/labels', { owner: 'planetarium', repo: 'take-home-2022-cj4207'})
     .then(res=>{
       res.data.map(el=>{
         setLabels(pre=>[...pre, el.name])
@@ -24,7 +26,11 @@ export default function NewIssue() {
     if(body){
       octokit.request('POST /repos/{owner}/{repo}/issues', body)
       .then(res=>{
-        console.log(document.querySelector('.modal'))
+        document.querySelector('.modal').className += ' show'
+        setModalContent({
+          title: '이슈 등록 완료',
+          body: `${body.owner}/${body.repo} 이슈 추가 등록 했습니다.`
+        })
       })
     }
   }, [body])
@@ -37,8 +43,8 @@ export default function NewIssue() {
     event.preventDefault()
     console.log(event.target[0].value)
     setBody({
-      owner: 'cj4207',
-      repo: 'react-app',
+      owner: 'planetarium',
+      repo: 'take-home-2022-cj4207',
       title: event.target[0].value,
       body: event.target[1].value
     })

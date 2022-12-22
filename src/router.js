@@ -6,7 +6,7 @@ import NewIssue from './pages/newIssue';
 export default function Router() {
   return(
     <Routes>
-      <Route path='/' element={<Link to='/issues'/>} />
+      <Route path='/' element={<Issues/>} />
       <Route path='/issues/*' element={<Issues/>}>
         {/* <Route path=':id' element={<Issue/>} /> */}
         {/* <Route path='edit' element={<EditIssue/>}/> */}
