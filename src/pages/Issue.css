@@ -1,8 +1,3 @@
-.issueArea {
-  margin-left: 5px;
-  width: 50%;
-}
-
 .issueArea:hover {
   cursor: pointer;
 }
@@ -21,4 +16,10 @@
   position: absolute;
   right: 10px;
   top: 5px;
+}
+
+.issueArea {
+  display: inline-block;
+  width: 250px;
+  vertical-align: text-top;
 }

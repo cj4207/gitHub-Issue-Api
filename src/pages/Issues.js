@@ -42,16 +42,15 @@ export default function Issues() {
   return(
     <>
     {issues&&
+      <div className='issuesArea'>
         <Card>
           <Card.Header as="h5">Issues</Card.Header>
           <Card.Body>
             <Card.Title>{issues.length ? '현재 등록된 이슈가 없습니다.' : '현재 등록된 이슈' }</Card.Title>
-            {issues.length ?
-                <div className='issuesArea'>
-                {issues.map((el, idx)=>
+              {issues.length ?
+                issues.map((el, idx)=>
                   <Issue key={idx} issueData={el} />
-                )}
-                </div>
+                )
               :
               <Link to='/new'>
                 <Button variant="primary">이슈 등록하러 가기</Button>
@@ -59,6 +58,7 @@ export default function Issues() {
               }
           </Card.Body>
         </Card>
+      </div>
       }
     </>
     )
