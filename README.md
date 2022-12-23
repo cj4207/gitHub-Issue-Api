@@ -4,6 +4,10 @@ Planetarium 과제 GitHub Issue API 연동 페이지 제출용 Repo
 
 ## 셋팅
 
+OS 윈도우,
+
+노드 : 18.12.1
+
 ### 1. `npm install`
 
 필요한 package를 다운 받습니다.
