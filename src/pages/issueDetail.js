@@ -1,22 +1,20 @@
-import { Octokit } from "octokit"
 import { useEffect, useState } from "react"
 import { Button, Card } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { useRecoilState, useRecoilValue } from "recoil"
 import Comments from "../components/comments"
 import { commentsState, issueDetailState } from "../state/recoil"
-import NewComment from "./newComment"
+import NewComment from "../components/newComment"
+import { shared } from "../lib/shared"
 
 export default function IssueDetail() {
   const [comments, setComments] = useRecoilState(commentsState)
   const issueDetail = useRecoilValue(issueDetailState)
   useEffect(()=>{
-    const octokit = new Octokit({
-      auth: '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'
-    })
+    const octokit = shared.octokit
     octokit.request('GET /repos/{owner}/{repo}/issues/{issue_number}/comments', {
-      owner: 'planetarium',
-      repo: 'take-home-2022-cj4207',
+      owner: shared.owner,
+      repo: shared.repo,
       issue_number: issueDetail.number
     }).then(res=>setComments(res.data))
   }, [])

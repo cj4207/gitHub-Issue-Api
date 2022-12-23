@@ -2,21 +2,13 @@ import { useEffect } from 'react';
 import { Badge, Card } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
+import { shared } from '../lib/shared';
 import { issueDetailState } from '../state/recoil';
 import './Issue.css'
+
 export default function Issue({issueData}) {
   const [issueDetail, setIssueDetail] = useRecoilState(issueDetailState)
   const navigate = useNavigate()
-  const badgeBg = {
-    'documentation': 'primary',
-    'duplicate': 'secondary',
-    'good first issue': 'success',
-    'bug' : 'danger',
-    'invalid': 'warning',
-    'question': 'info',
-    'help wanted': 'light',
-    'enhancement': 'dark'
-  }
   
   function handleIssueClick(){
     setIssueDetail(issueData)
@@ -38,7 +30,7 @@ export default function Issue({issueData}) {
           </div>
           <div className='issueBadgeArea'>
             {issueData.labels?.map((el, idx)=>
-              <Badge key={idx} bg={badgeBg[el.name]}>{el.name}</Badge>
+              <Badge key={idx} bg={shared.badgeBg[el.name]}>{el.name}</Badge>
               )}
           </div>
         </Card.Body>

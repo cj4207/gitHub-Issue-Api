@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
 import { Button, Card } from 'react-bootstrap';
-import { Octokit } from 'octokit';
 import { Link } from 'react-router-dom';
 import Issue from './Issue';
 import './Issues.css'
+import { shared } from '../lib/shared';
 export default function Issues() {
   const [issues, setIssues] = useState()
   useEffect(()=>{
-    const octokit = new Octokit({
-      auth: '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'
+    const octokit = shared.octokit
+    octokit.request('GET /repos/{owner}/{repo}/issues', { 
+      owner: shared.owner,
+      repo: shared.repo
     })
-    octokit.request('GET /repos/{owner}/{repo}/issues', { owner: 'planetarium', repo: 'take-home-2022-cj4207'})
     .then(res=>{
-      console.log(res.data, 'res.datares.data')
       setIssues(res.data)
     })
   }, [])

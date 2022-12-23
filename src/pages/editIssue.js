@@ -1,8 +1,7 @@
-import { Octokit } from 'octokit';
 import { useState, useEffect } from 'react';
 import { Button, Form, Dropdown } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
 import { useRecoilState, useSetRecoilState } from 'recoil';
+import { shared } from '../lib/shared';
 import { issueDetailState, modalContentState } from '../state/recoil';
 
 export default function NewIssue() {
@@ -11,13 +10,12 @@ export default function NewIssue() {
   const [body, setBody] = useState()
   const [labels, setLabels] = useState([])
   const setModalContent = useSetRecoilState(modalContentState)
-  const octokit = new Octokit({
-    auth: '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'
-  })
-
+  const octokit = shared.octokit
   useEffect(()=>{
-    console.log(issueDetail,'issueNumberissueNumberissueNumberissueNumberissueNumber')
-    octokit.request('GET /repos/{owner}/{repo}/labels', { owner: 'planetarium', repo: 'take-home-2022-cj4207'})
+    octokit.request('GET /repos/{owner}/{repo}/labels', { 
+      owner: shared.owner,
+      repo: shared.repo
+    })
     .then(res=>{
       res.data.map(el=>{
         setLabels(pre=>[...pre, el.name])
@@ -55,15 +53,11 @@ export default function NewIssue() {
     }
   }, [body])
 
-  useEffect(()=>{
-    console.log(labels,'labels')
-  }, [labels])
-
   function handleSubmit(event){
     event.preventDefault()
     setBody({
-      owner: 'planetarium',
-      repo: 'take-home-2022-cj4207',
+      owner: shared.owner,
+      repo: shared.repo,
       title: event.target[0].value,
       body: event.target[1].value,
       issue_number: issueDetail.number ? issueDetail.number : ''
