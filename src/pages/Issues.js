@@ -4,9 +4,13 @@ import { Link } from 'react-router-dom';
 import Issue from './Issue';
 import './Issues.css'
 import { shared } from '../lib/shared';
+import { useRecoilState } from 'recoil';
+import { modalContentState } from '../state/recoil';
 let getRepoIssuesTimeout
+let prevRepoIssuesCounts
 export default function Issues() {
   const [issues, setIssues] = useState()
+  const [modal, setModalContent] = useRecoilState(modalContentState)
   const octokit = shared.octokit
 
   function getRepoIssues(){
@@ -15,9 +19,19 @@ export default function Issues() {
       repo: shared.repo
     })
     .then(res=>{
+      console.log('반응이 너무 느린데',prevRepoIssuesCounts, res.data.length)
+      if(prevRepoIssuesCounts && prevRepoIssuesCounts !== res.data.length){
+        console.log('들어온겨?')
+        document.querySelector('.modal').className += ' show'
+        setModalContent({
+          title: '이슈 변경 감지',
+          body: '이슈 변경이 감지 되었습니다. 확인해 보세요'
+        })
+      }
       setIssues(res.data)
+      prevRepoIssuesCounts = res.data.length
       clearTimeout(getRepoIssuesTimeout)
-      getRepoIssuesTimeout = setTimeout(getRepoIssues, 3000)
+      getRepoIssuesTimeout = setTimeout(getRepoIssues, 2000)
     })
   }
 
