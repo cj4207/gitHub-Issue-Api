@@ -4,17 +4,25 @@ import { Link } from 'react-router-dom';
 import Issue from './Issue';
 import './Issues.css'
 import { shared } from '../lib/shared';
+let getRepoIssuesTimeout
 export default function Issues() {
   const [issues, setIssues] = useState()
-  useEffect(()=>{
-    const octokit = shared.octokit
+  const octokit = shared.octokit
+
+  function getRepoIssues(){
     octokit.request('GET /repos/{owner}/{repo}/issues', { 
       owner: shared.owner,
       repo: shared.repo
     })
     .then(res=>{
       setIssues(res.data)
+      clearTimeout(getRepoIssuesTimeout)
+      getRepoIssuesTimeout = setTimeout(getRepoIssues, 3000)
     })
+  }
+
+  useEffect(()=>{
+    getRepoIssues()
   }, [])
   
   return(
