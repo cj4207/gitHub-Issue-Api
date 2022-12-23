@@ -62,7 +62,7 @@ export default function NewIssue() {
         labels.push(el.parentNode.lastChild.innerText)
       }
     })
-    console.log(checkBox,'checkBoxcheckBoxcheckBox')
+    
     setBody({
       owner: shared.owner,
       repo: shared.repo,

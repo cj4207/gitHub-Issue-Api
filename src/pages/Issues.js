@@ -19,9 +19,7 @@ export default function Issues() {
       repo: shared.repo
     })
     .then(res=>{
-      console.log('반응이 너무 느린데',prevRepoIssuesCounts, res.data.length)
       if(prevRepoIssuesCounts && prevRepoIssuesCounts !== res.data.length){
-        console.log('들어온겨?')
         document.querySelector('.modal').className += ' show'
         setModalContent({
           title: '이슈 변경 감지',
