@@ -27,6 +27,9 @@ export default function Issue({issueData}) {
     <div className='issueArea' onClick={handleIssueClick}>
       <Card style={{ width: '100%' , display: 'inline-block', height: '15rem'}}>
         <Card.Body>
+          <div className='commentsBadge'>
+            <Badge bg='primary'>{`댓글 : ${issueData.comments}`}</Badge>
+          </div>
           <Card.Title>{issueData.title}</Card.Title>
           <div className='issueTextArea'>
             <Card.Text>
