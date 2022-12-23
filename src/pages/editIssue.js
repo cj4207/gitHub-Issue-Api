@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Button, Form, Dropdown } from 'react-bootstrap';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { shared } from '../lib/shared';
@@ -10,6 +10,7 @@ export default function NewIssue() {
   const [body, setBody] = useState()
   const [labels, setLabels] = useState([])
   const setModalContent = useSetRecoilState(modalContentState)
+  const checkBox = useRef([])
   const octokit = shared.octokit
   useEffect(()=>{
     octokit.request('GET /repos/{owner}/{repo}/labels', { 
@@ -55,12 +56,20 @@ export default function NewIssue() {
 
   function handleSubmit(event){
     event.preventDefault()
+    const labels = []
+    checkBox.current.map(el=>{
+      if(el.checked){
+        labels.push(el.parentNode.lastChild.innerText)
+      }
+    })
+    console.log(checkBox,'checkBoxcheckBoxcheckBox')
     setBody({
       owner: shared.owner,
       repo: shared.repo,
       title: event.target[0].value,
       body: event.target[1].value,
-      issue_number: issueDetail.number ? issueDetail.number : ''
+      issue_number: issueDetail.number ? issueDetail.number : '',
+      labels
     })
   }
 
@@ -75,12 +84,12 @@ export default function NewIssue() {
         <Form.Label>내용</Form.Label>
         <Form.Control type="content" placeholder={(issueDetail.body ? issueDetail.body : "Enter Content")} />
       </Form.Group>
-      {/* <Form.Group>
-        <Form.Label>레이블</Form.Label><br/>
+      <Form.Group>
+        <Form.Label>라벨</Form.Label><br/>
         {labels.map((el, idx)=>
-          <Form.Check key={idx} inline type='checkbox' label={el}/>
+          <Form.Check key={idx} inline type='checkbox' label={el} ref={(e)=>checkBox.current.push(e)}/>
         )}
-      </Form.Group> */}
+      </Form.Group>
 
       <Button variant="primary" type="submit">
         {issueDetail.title ? '수정 하기' : '등록 하기'}
