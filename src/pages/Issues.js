@@ -16,26 +16,28 @@ export default function Issues() {
       setIssues(res.data)
     })
   }, [])
-
+  
   return(
     <>
-      <Card>
-        <Card.Header as="h5">Issues</Card.Header>
-        <Card.Body>
-          <Card.Title>{issues?.length ? '현재 등록된 이슈' : '현재 등록된 이슈가 없습니다.'}</Card.Title>
-          {issues?.length ?
-              <div className='issuesArea'>
-              {issues.map((el, idx)=>
-                <Issue key={idx} issueData={el} />
-              )}
-              </div>
-            :
-            <Link to='/new'>
-              <Button variant="primary">이슈 등록하러 가기</Button>
-            </Link>
-            }
-        </Card.Body>
-      </Card>
+    {issues&&
+        <Card>
+          <Card.Header as="h5">Issues</Card.Header>
+          <Card.Body>
+            <Card.Title>{issues.length ? '현재 등록된 이슈가 없습니다.' : '현재 등록된 이슈' }</Card.Title>
+            {issues.length ?
+                <div className='issuesArea'>
+                {issues.map((el, idx)=>
+                  <Issue key={idx} issueData={el} />
+                )}
+                </div>
+              :
+              <Link to='/new'>
+                <Button variant="primary">이슈 등록하러 가기</Button>
+              </Link>
+              }
+          </Card.Body>
+        </Card>
+      }
     </>
     )
 }
